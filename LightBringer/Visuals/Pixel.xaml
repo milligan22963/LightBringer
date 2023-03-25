@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="LightBringer.Visuals.Pixel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="32" d:DesignWidth="32">
+    <Grid>
+        <Border Height="32"  Width="32" Padding="2,2,2,2">
+            <Ellipse Name="PixelCanvas" MouseLeftButtonUp="PixelCanvas_MouseLeftButtonUp" MouseLeftButtonDown="PixelCanvas_MouseLeftButtonDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Ellipse>
+        </Border>
+    </Grid>
+</UserControl>

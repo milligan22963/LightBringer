@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="LightBringer.Visuals.AnimationFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="48" d:DesignWidth="48" Height="48" Width="48" MouseLeftButtonUp="FrameBorder_MouseUp" AllowDrop="True" Drop="AnimationFrameTransform_Drop">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Name="FrameBorder" MouseUp="FrameBorder_MouseUp" Grid.Column="0" Grid.Row="0" BorderBrush="Black" Margin="5" BorderThickness="2"></Border>
+    </Grid>
+</UserControl>

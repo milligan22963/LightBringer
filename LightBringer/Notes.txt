@@ -1,0 +1,129 @@
+﻿1. Pixels should be controls on a strip displayed in the window however we shouldnt have a set for every frame
+	instead we should have background pixels that exchange with the display pixels reducing memory
+2. Strips should be straight in nature and can be grouped together to make advanced shapes.
+3. 3D geometry and paths are used to define the pixel strip
+4. Linked transitions i.e. a delay transition is linked to a gradient, stacked transitions
+5. tool box
+	a. Pointer (arrow) for selecting?
+	b. Paint bucket for fill
+	c. Paint brush for single pixel color
+	d. scissors for cutting out pixels?
+	e. Eye Dropper
+	f. 
+	A tool should be able to work with the selected frame or the set of frames i.e. make all pixel 1 black etc.
+6. Layers
+	A. Allow users to create layers at the frame level so two frames can be layered and combined into one resulting frame
+	B. Layers can have masks which mask off pixels that shouldn't be effected
+7. Plugins
+	A. User can create them
+		1. Fade - start at current and fade to a specific level i.e. not always clear
+		2. Rotate - left, right, center out, out to center
+		3. Delay - done
+		4. Gradient - done
+		5. Audio Synch? Allow users to set colors and effects based on music frequency?
+		6. Audio transform which transforms a frame based on an audio track.  The user can configure the colors for each frequency
+
+		Hover over a plugin and see it animate as it will in the document
+		Need a context menu for when on film strip to delete it
+
+8. Heirarchy
+	A. Controller
+		1. Movie
+			i. Frame
+				a. Strip
+					1. Pixel
+					2. Pixel
+				b. Strip
+					1. Pixel
+					2. Pixel
+				<< Transition(s) ?  between frames are transitions and are transitions specific to all or single strips?  Time will have to be the same across strips
+			ii. Frame
+				a. Strip
+					1. Pixel
+					2. Pixel
+				b. Strip
+					1. Pixel
+					2. Pixel
+		2. Movie
+			i. Frame
+				a. Strip
+					1. Pixel
+					2. Pixel
+				b. Strip
+					1. Pixel
+					2. Pixel
+
+A controller will have a set of strips associated with it that will define how many strips each frame can have inside of a movie.  This will require
+that we will need to only allow each frame to have at most the same number of strips that the controller supports.
+
+3D Model allows drag and drop of strips along a path
+standard view should allow strips to be arranged and bent in a 2D frame
+
+Commands / Commands et
+Need a base command that can be sent and received.  Will want to be able to send in various formats depending on target.
+Commands should be derived from a common base and inherited from.  Each command should be resent if not acknowledged.
+Each command once acknowledged will be discarded.
+
+Server / client model with the PC as the server and the controller boards as the clients.  Clients will "ping" when they first come up for any servers.  Servers will ask
+clients to announce themselves on start and periodically to pick up stragglers.
+
+BoardId - Int16 for easy manipulation on an arduino or similar, will be the last 4 bytesof the mac address
+Version - Int16 as above
+
+Pins:
+	Id
+	Type
+
+Command set:
+1. Client
+	a. Announce availability
+		i. Presence
+			- client id
+			- client version
+			- client type
+		ii. PresenceAck
+			- id,
+			- version
+			- type
+	b. Send Configuration
+	    -0.  board id
+		0.   board type
+		i.   strip count
+		ii.  strip lengths
+		iii. strip color - 0 - 7, 0 = solid, 1 = red, 2 = green, 4 = blue, 8 = yellow? if solid type
+		iv.  strip type, 0 = LPD8806, 1, WS2812, solid color, multi color non-addressable
+		v.   pin(s) based on type for user defined, can be supplied by led phoenix boards so people can choose spi over bitbang
+	c. Send capabilities
+	d. Send status
+	e. Request item
+2. Server
+	a. Announce availability
+		i. Presence
+			- server id
+			- server version
+	b. Request Configuration
+		i.  board id
+	c. Set Configuration
+	    i.	 board id
+		ii.	 board type
+		iii. strip count
+		iv.  strip lengths
+		v.   strip type
+		vi.  strip color if solid type
+		vii. pin(s) based on type
+	c. Request capabilities? - same as configuration?
+	d. Request Status
+	e. Send Item
+		- items have and id, and a number of colors for said id
+		- basically a single frame
+	f. Send movie
+		- movies made of items
+	g. Send Asset
+	h. Send show command
+		1. Play movie
+		2. Store movie
+		3. Delete movie
+
+// Movies will have frames
+// frames will have pixels
+// can broad cast to all boards using 0 as the board id		

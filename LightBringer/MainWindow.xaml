@@ -1,0 +1,330 @@
+﻿<Window xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"  x:Class="LightBringer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:LightBringer"
+        xmlns:tools="clr-namespace:LightBringer.Toolbox"
+        xmlns:vm="clr-namespace:LightBringer.ViewModel"
+        xmlns:visuals="clr-namespace:LightBringer.Visuals"
+        xmlns:mru="clr-namespace:MostRecentFiles;assembly=MostRecentFiles"
+        xmlns:tform="clr-namespace:Transform;assembly=Transform"
+        xmlns:helix="http://helixtoolkit.codeplex.com"
+        Title="Light Bringer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized" Cursor="Arrow">
+    <Window.Resources>
+        <local:RoundingConverter x:Key="RoundingConverter" />
+        
+        <ContextMenu x:Key="SwatchTabMenu">
+            <MenuItem Header="_New Swatch Folder" Click="MenuItem_NewSwatchSet">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/folder-plus.png" Width="16" Height="16"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Delete Swatch Folder" Click="MenuItem_DeleteSwatchSet">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/folder-delete.png" Width="16" Height="16"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Import Swatch Folder" Click="MenuItem_ImportSwatchSet">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/folder-import.png" Width="16" Height="16"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="_Export Swatch Folder" Click="MenuItem_ExportSwatchSet">
+                <MenuItem.Icon>
+                    <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/case.png" Width="16" Height="16"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="ControllerTreeMenu">
+            <MenuItem Header="_Configure" Click="Controller_Configure"></MenuItem>
+            <MenuItem Header="_Add Movie" Click="Controller_AddMovie"></MenuItem>
+            <MenuItem Header="_Paste Movie" Click="Controller_PasteMovie"></MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="MovieTreeMenu">
+            <MenuItem Header="_Add Frame" Click="Movie_AddFrame"></MenuItem>
+            <MenuItem Header="_Paste Frame" Click="Movie_PasteFrame"></MenuItem>
+            <MenuItem Header="_Copy Movie" Click="Movie_CopyMovie"></MenuItem>
+            <MenuItem Header="C_ut Movie" Click="Movie_CutMovie"></MenuItem>
+            <MenuItem Header="_Delete Movie" Click="Movie_DeleteMovie"></MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="FrameTreeMenu">
+            <MenuItem Header="_Add Strip" Click="Frame_AddStrip"></MenuItem>
+            <MenuItem Header="_Paste Strip" Click="Frame_PasteStrip"></MenuItem>
+            <MenuItem Header="_Copy Frame" Click="Frame_CopyFrame"></MenuItem>
+            <MenuItem Header="C_ut Frame" Click="Frame_CutFrame"></MenuItem>
+            <MenuItem Header="_Delete Frame" Click="Frame_DeleteFrame"></MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="StripTreeMenu">
+            <MenuItem Header="_Copy Strip" Click="Strip_CopyStrip"></MenuItem>
+            <MenuItem Header="C_ut Strip" Click="Strip_CutStrip"></MenuItem>
+            <MenuItem Header="_Delete Strip" Click="Strip_DeleteStrip"></MenuItem>
+        </ContextMenu>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="New"/>
+        <KeyBinding Key="S" Modifiers="Control" Command="Save"/>
+        <KeyBinding Key="O" Modifiers="Control" Command="Open"/>
+        <KeyBinding Key="X" Modifiers="Control" Command="Cut"/>
+        <KeyBinding Key="C" Modifiers="Control" Command="Copy"/>
+        <KeyBinding Key="V" Modifiers="Control" Command="Paste"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" Executed="MenuItem_NewDocument" />
+        <CommandBinding Command="Save" Executed="MenuItem_SaveDocument" />
+        <CommandBinding Command="Open" Executed="MenuItem_OpenDocument" />
+        <CommandBinding Command="Cut" Executed="CommandBinding_Cut" />
+        <CommandBinding Command="Copy" Executed="CommandBinding_Copy" />
+        <CommandBinding Command="Paste" Executed="CommandBinding_Paste" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Cursor="Arrow">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="MenuItem_NewDocument"></MenuItem>
+                <MenuItem Header="_Open" Click="MenuItem_OpenDocument"></MenuItem>
+                <MenuItem Header="_Close" Click="MenuItem_CloseDocument"></MenuItem>
+                <Separator Background="#FFC74848" Height="2" Margin="2,0,2,0"></Separator>
+                <MenuItem Header="_Save" Click="MenuItem_SaveDocument"></MenuItem>
+                <MenuItem Header="S_ave As" Click="MenuItem_SaveAsDocument"></MenuItem>
+                <Separator Background="#FFC74848" Height="2" Margin="2,0,2,0"></Separator>
+                <MenuItem Name="RecentFileList" Header="Recent Files" Margin="5" ItemsSource="{Binding Children}">
+                    <MenuItem.Resources>
+                        <HierarchicalDataTemplate
+                                          DataType="{x:Type mru:MRUFileHandler}" 
+                                          ItemsSource="{Binding Children}"
+                                          >
+                            <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                <TextBlock Margin="5,5,0,5" Text="RCL"></TextBlock>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                        <DataTemplate DataType="{x:Type mru:FileListEntry}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Header}" MouseLeftButtonUp="MRU_MouseLeftButtonUp"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </MenuItem.Resources>
+                </MenuItem>
+                <Separator Background="#FFC74848" Height="2" Margin="2,0,2,0"></Separator>
+                <MenuItem Header="E_xit" Click="MenuItem_ExitProgram"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Render">
+                <MenuItem Header="To _File"></MenuItem>
+                <MenuItem Header="To _Device"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_About" Click="MenuItem_AboutClick">
+            </MenuItem>
+        </Menu>
+        <StackPanel Cursor="Arrow" Grid.Row="1" Grid.ColumnSpan="2"  Background="{DynamicResource ResourceKey=DefaultBackgroundGradient}" Orientation="Horizontal">
+            <Grid HorizontalAlignment="Stretch" Cursor="Arrow">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="36"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="36"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <tools:ToolButton x:Name="ArrowSelection" Action="Select" ToolType="SingleSelection"  Grid.Row="1" Grid.Column="1" Click="ToolSelection_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/arrow2.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="AreaSelection" Action="Select" ToolType="MultiSelection" Grid.Row="1" Grid.Column="3" Click="ToolSelection_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/selection.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="BrushSelection" Action="Paint" ToolType="SingleSelection" Grid.Row="1" Grid.Column="5" Click="ToolSelection_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/brush.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="BucketSelection" Action="Paint" ToolType="MultiSelection" Grid.Row="1" Grid.Column="7" Click="ToolSelection_Click" CursorURI="pack://application:,,,/LightBringer;component/Resources/Cursors/Bucket.cur" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/bucket.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="EyeDropperSelection" Action="Query" ToolType="EyeDropper" Grid.Row="1" Grid.Column="9" Click="ToolSelection_Click" CursorURI="pack://application:,,,/LightBringer;component/Resources/Cursors/Dropper.cur" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/dropper.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="ScissorSelection" Action="Edit" ToolType="Cut" Grid.Row="1" Grid.Column="11" Click="ToolSelection_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/tools.png">
+                </tools:ToolButton>
+                <tools:ToolButton  Grid.Row="1" Grid.Column="13" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/tools.png">
+                </tools:ToolButton>
+                <tools:ToolButton  Grid.Row="1" Grid.Column="15" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/tools.png">
+                </tools:ToolButton>
+            </Grid>
+        </StackPanel>
+        <xcad:DockingManager Grid.Row="2" Grid.Column="0">
+            <xcad:LayoutRoot>
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <!-- Treeview of controller and movies -->
+                    <xcad:LayoutAnchorablePane DockWidth="250">
+                        <xcad:LayoutAnchorable CanClose="False" Title="Controllers" FloatingWidth="200">
+                            <TreeView Name="ControllerData" Background="Transparent" ToolTip="{Binding ControllerTypeName}" SelectedItemChanged="ControllerData_SelectedItemChanged" ItemsSource="{Binding Children}" Margin="0, 10, 0, 0" ContextMenu="{StaticResource ResourceKey=ControllerTreeMenu}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Cursor="Arrow">
+                                <TreeView.ItemContainerStyle>
+                                    <!-- This Style binds a TreeViewItem to a TreeViewItemViewModel. -->
+                                    <Style TargetType="{x:Type TreeViewItem}">
+                                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                        <Setter Property="FontWeight" Value="Normal" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TreeView.ItemContainerStyle>
+
+                                <TreeView.Resources>
+                                    <HierarchicalDataTemplate 
+                                          DataType="{x:Type vm:MovieViewModel}" 
+                                          ItemsSource="{Binding Children}"
+                                          >
+                                        <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource ResourceKey=MovieTreeMenu}" Margin="5,0,0,0">
+                                            <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/tree_movie.png" Width="16" Height="16"></Image>
+                                            <TextBox Margin="5,5,0,5" x:Name="TreeText" Text="{Binding MovieName, Mode=TwoWay}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}" ></TextBox>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+
+                                    <!-- Inserting transform stacks
+                                    <HierarchicalDataTemplate 
+                                          DataType="{x:Type tform:TransformStack}" 
+                                          ItemsSource="{Binding Children}"
+                                          >
+                                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                            <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/tree_frame.png" Width="16" Height="16"></Image>
+                                            <TextBox Margin="5,5,0,5" x:Name="TreeText" Text="{Binding Transforms, Mode=OneWay}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBox>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate -->
+
+                                    <HierarchicalDataTemplate 
+                                          DataType="{x:Type vm:FrameViewModel}" 
+                                          ItemsSource="{Binding Children}"
+                                          >
+                                        <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource ResourceKey=FrameTreeMenu}" Margin="5,0,0,0">
+                                            <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/tree_frame.png" Width="16" Height="16"></Image>
+                                            <TextBox Margin="5,5,0,5" x:Name="TreeText" Text="{Binding FrameName, Mode=TwoWay}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBox>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+
+                                    <HierarchicalDataTemplate 
+                                          DataType="{x:Type vm:StripViewModel}" 
+                                          ItemsSource="{Binding Children}"
+                                          >
+                                        <StackPanel Orientation="Horizontal" ContextMenu="{StaticResource ResourceKey=StripTreeMenu}" Margin="5,0,0,0">
+                                            <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/tree_strip.png" Width="16" Height="16"></Image>
+                                            <TextBox Margin="5,5,0,5" x:Name="TreeText" Text="{Binding StripName, Mode=TwoWay}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBox>
+                                            <TextBlock Margin="5,5,0,5" Text="{Binding StripId}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+
+                                    <DataTemplate DataType="{x:Type vm:PixelViewModel}">
+                                        <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                                            <Border Background="{Binding CurrentColorAsBrush, Mode=OneWay}">
+                                                <Image Source="pack://application:,,,/LightBringer;component/Resources/Icons/tree_pixel.png" Width="16" Height="16"></Image>
+                                            </Border>
+                                            <TextBlock Margin="5,5,0,5" x:Name="TreeText" Text="{Binding PixelName}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBlock>
+                                            <TextBlock Margin="5,5,0,5" Text="{Binding EnumerationId}" Foreground="{StaticResource ResourceKey=DefaultSelectedForegroundBrush}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </TreeView.Resources>
+                            </TreeView>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+                    
+                    <!-- Editor window -->
+                    <xcad:LayoutDocumentPane x:Name="EditorWindow"  DockMinWidth="250" DockWidth="250" FloatingWidth="300">
+                        <xcad:LayoutDocument CanClose="False" Title="Editor">
+                            <xctk:Zoombox Name="PixelZoomBox" MouseLeftButtonDown="PixelZoomBox_MouseLeftButtonDown" MouseLeftButtonUp="PixelZoomBox_MouseLeftButtonUp" MouseMove="PixelZoomBox_MouseMove" PreviewMouseMove="PixelZoomBox_PreviewMouseMove" Background="{StaticResource ResourceKey=DefaultBackgroundGradient}" Foreground="#FF665151">
+                                <!-- each strip of each Frame will be placed in the Frame container-->
+                                <visuals:StripPanel x:Name="FrameContainer" MouseWheel="PixelStack_MouseWheel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">      
+                                </visuals:StripPanel>
+                            </xctk:Zoombox>
+                        </xcad:LayoutDocument>
+                        <xcad:LayoutDocument x:Name="ThreeDView" CanClose="True" Title="3D View" IsSelectedChanged="ThreeDView_IsSelectedChanged">
+                            <Grid Background="Black">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50*"></RowDefinition>
+                                    <RowDefinition Height="32"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <helix:HelixViewport3D x:Name="ThreeDViewPort" EnableCurrentPosition="True" Grid.Column="0" Grid.Row="0">
+                                    <helix:SunLight x:Name="ViewPortLight" Brightness="0.8"></helix:SunLight>
+                                    <helix:GridLinesVisual3D x:Name="ViewPortGrid" Thickness="0.05"></helix:GridLinesVisual3D>
+                                </helix:HelixViewport3D>
+                                <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Background="Silver">
+                                    <DockPanel LastChildFill="False">
+                                        <Button x:Name="ResetView" DockPanel.Dock="Left" Click="ResetView_Click">Reset</Button>
+                                        <CheckBox x:Name="ShowGrid" Width="90" Margin="0,0,0,0" Background="Silver" DockPanel.Dock="Right" IsChecked="True" Click="ShowGrid_Click">Show Grid</CheckBox>
+                                    </DockPanel>
+                                </StackPanel>
+                            </Grid>
+                        </xcad:LayoutDocument>
+                    </xcad:LayoutDocumentPane>
+                    <!-- Color selection and swatch management -->
+                    <xcad:LayoutAnchorablePane DockWidth="250">
+                        <xcad:LayoutAnchorable Title="Colors">
+                            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Cursor="Arrow" Background="{DynamicResource ResourceKey=DefaultBackgroundGradient}">
+                                <xctk:ColorCanvas Background="{StaticResource ResourceKey=DefaultBackgroundGradient}" Name="ColorSelection" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseRightButtonUp="ColorSelection_MouseRightButtonUp"/>
+                                <Border Name="TabBorder">
+                                    <TabControl SelectionChanged="SwatchTab_SelectionChanged" ContextMenu="{StaticResource ResourceKey=SwatchTabMenu}" Padding="10" Margin="0,0,0,5" Name="SwatchTab" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    </TabControl>
+                                </Border>
+                                <Border Name="TransformBorder">
+                                    <TabControl Name="TransformControl" Padding="10" Margin="0,0,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                        <TabItem Header="System Transforms">
+                                            <WrapPanel Name="SystemTransforms"></WrapPanel>
+                                        </TabItem>
+                                        <TabItem Header="User Transforms">
+                                            <WrapPanel Name="UserTransforms"></WrapPanel>
+                                        </TabItem>
+                                    </TabControl>
+                                </Border>
+                            </StackPanel>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+        <!-- Frame strip to show selected movie frames and allow for playback -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="20*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ToolBarPanel Margin="5" Background="{StaticResource ResourceKey=DefaultBackgroundGradient}" Orientation="Horizontal">
+                <tools:ToolButton x:Name="Home" Action="Select" ToolType="SingleSelection"  Click="Home_Click"  SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_home.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="Rewind" Action="Select" ToolType="SingleSelection"  Click="Rewind_Click"  SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_rewind.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="Play" Action="Select" ToolType="SingleSelection"  Click="Play_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_play.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="Forward" Action="Select" ToolType="SingleSelection"  Click="Forward_Click"  SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_forward.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="End" Action="Select" ToolType="SingleSelection"  Click="End_Click"  SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_end.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="Pause" Action="Select" ToolType="SingleSelection" IsEnabled="False" Click="Pause_Click"  SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_pause.png">
+                </tools:ToolButton>
+                <tools:ToolButton x:Name="Stop" Action="Select" ToolType="SingleSelection" IsEnabled="False" Click="Stop_Click" SourceURI="pack://application:,,,/LightBringer;component/Resources/Icons/music_stop.png">
+                </tools:ToolButton>
+            </ToolBarPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="{StaticResource ResourceKey=DefaultBackgroundGradient}">
+                <visuals:AnimationPanel x:Name="FrameStrip"></visuals:AnimationPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

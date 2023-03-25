@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:LightBringer">
+    
+    <SolidColorBrush x:Key="LBSolidBrush" Color="BurlyWood"/>
+    <LinearGradientBrush x:Key="LBLinearGradientBrush" EndPoint="0.75,1" StartPoint="0.25,0" >
+        <GradientStop Color="Black" Offset="1"/>
+        <GradientStop Color="White"/>
+    </LinearGradientBrush>
+</ResourceDictionary>

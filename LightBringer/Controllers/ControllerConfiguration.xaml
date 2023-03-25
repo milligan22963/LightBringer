@@ -1,0 +1,70 @@
+﻿<Window x:Class="LightBringer.Controllers.ControllerConfiguration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Controller Configuration" Height="300" Width="500" Background="{StaticResource ResourceKey=DefaultBackgroundGradient}">
+    <Window.Resources>
+        <!-- style to apply to DataGridTextColumn in edit mode  
+        Taken from http://www.codeproject.com/Articles/30905/WPF-DataGrid-Practical-Examples-->
+        <Style x:Key="CellEditStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self},
+                                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="22"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition Width="125"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0"  Grid.Column="0">
+                <TextBlock VerticalAlignment="Center">Controller:</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <ComboBox Name="ControllerTypeSelection" SelectionChanged="ControllerTypeSelection_Selected">
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center">Strip Count:</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Background="White">
+                <TextBlock Margin="5,0,0,0" Background="White" VerticalAlignment="Center" Name="StripCount" TextInput="StripCount_TextInput"></TextBlock>
+            </StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="2" LastChildFill="False" Margin="5,0,5,0">
+            <Button Click="AddStrip_Click" DockPanel.Dock="Left">Add Strip</Button>
+            <Button Click="DeleteStrip_Click" DockPanel.Dock="Right">Delete Strip</Button>
+        </DockPanel>
+        <StackPanel Margin="5,10,5,0" Grid.Row="2" Grid.ColumnSpan="4">
+            <DataGrid Name="StripGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Strip Name" Binding="{Binding Path=StripName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Length" Binding="{Binding Path=Length}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Addressable" Binding="{Binding Path=Addressable}"></DataGridCheckBoxColumn>
+                    <DataGridTextColumn IsReadOnly="{Binding Path=SPI}" Header="Clock Pin" Binding="{Binding Path=ClockPin}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="{Binding Path=SPI}" Header="Data Pin" Binding="{Binding Path=DataPin}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Uses SPI" Binding="{Binding Path=SPI}"></DataGridCheckBoxColumn>
+                    <DataGridTextColumn IsReadOnly="{Binding Path=BitBang}" Header="Select Pin" Binding="{Binding Path=SelectPin}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="0">
+                <Button Name="Ok" Click="Ok_Click">Ok</Button>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="3">
+                <Button Name="Cancel" Click="Cancel_Click" IsDefault="True">Cancel</Button>
+            </StackPanel>
+        </Grid>
+</Window>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="LightBringer.Visuals.StripSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Strip Configuration" Height="300" Width="300" Background="{StaticResource ResourceKey=DefaultBackgroundGradient}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+            <ColumnDefinition Width="125"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0"  Grid.Column="0">
+            <TextBlock VerticalAlignment="Center">Pixel Count:</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBox Margin="5,0,0,0" Name="NumberOfPixels"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">Strip Id:</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBox Margin="5,0,0,0" Name="StripNumber"></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            <Button Name="Ok" Click="Ok_Click">Ok</Button>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="2">
+            <Button Name="Cancel" Click="Cancel_Click" IsDefault="True">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

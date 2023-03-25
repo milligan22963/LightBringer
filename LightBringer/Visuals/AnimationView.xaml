@@ -1,0 +1,9 @@
+﻿<Window x:Class="LightBringer.Visuals.AnimationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:LightBringer.Visuals"
+        Title="AnimationView" Height="300" Width="300">
+    <Grid>
+        <local:AnimationFrame Width="Auto" Height="Auto" x:Name="AnimationTarget"></local:AnimationFrame>
+    </Grid>
+</Window>

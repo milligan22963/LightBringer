@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7E171F2B-F463-437C-9E69-6116E15375DA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LightBringer</RootNamespace>
+    <AssemblyName>LightBringer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="HelixToolkit.Wpf">
+      <HintPath>..\packages\HelixToolkit.2014.1.207.1\lib\NET45\HelixToolkit.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\packages\NAudio.1.7\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.0.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CommandSet.cs" />
+    <Compile Include="Controllers\Arduino.cs" />
+    <Compile Include="Controllers\ControllerConfiguration.xaml.cs">
+      <DependentUpon>ControllerConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ControllerStrip.cs" />
+    <Compile Include="Controllers\ControllerType.cs" />
+    <Compile Include="DataModel\Controller.cs" />
+    <Compile Include="DataModel\DataModelBase.cs" />
+    <Compile Include="DataModel\Frame.cs" />
+    <Compile Include="DataModel\Pixel.cs" />
+    <Compile Include="DataModel\Movie.cs" />
+    <Compile Include="DataModel\Strip.cs" />
+    <Compile Include="Visuals\AnimationEvent.cs" />
+    <Compile Include="Visuals\AnimationPanel.xaml.cs">
+      <DependentUpon>AnimationPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Visuals\AnimationView.xaml.cs">
+      <DependentUpon>AnimationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Visuals\AnimationFrame.xaml.cs">
+      <DependentUpon>AnimationFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Visuals\Pixel.xaml.cs">
+      <DependentUpon>Pixel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Visuals\PixelEventArgs.cs" />
+    <Compile Include="Visuals\StripPanel.cs" />
+    <Compile Include="Visuals\StripSettings.xaml.cs">
+      <DependentUpon>StripSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Visuals\StripView.cs" />
+    <Compile Include="Swatches\Swatch.xaml.cs">
+      <DependentUpon>Swatch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Swatches\SwatchEvent.cs" />
+    <Compile Include="Swatches\SwatchManager.cs" />
+    <Compile Include="Swatches\SwatchSet.cs" />
+    <Compile Include="ThirdParty\RelayCommand.cs" />
+    <Compile Include="RoundingConverter.cs" />
+    <Compile Include="Toolbox\ToolButton.xaml.cs">
+      <DependentUpon>ToolButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ControllerViewModel.cs" />
+    <Compile Include="ViewModel\FrameViewModel.cs" />
+    <Compile Include="ViewModel\PixelViewModel.cs" />
+    <Compile Include="ViewModel\MovieViewModel.cs" />
+    <Compile Include="ViewModel\StripViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controllers\ControllerConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Calendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\DocumentViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Frame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\LBStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\NavigationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ResizeGrip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Separator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\ToolTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Visuals\AnimationPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Visuals\AnimationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Visuals\AnimationFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Visuals\Pixel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Swatches\Swatch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Toolbox\ToolButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Visuals\StripSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ModifySwatch.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Swatches\Modify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Swatches\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\folder-edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\folder-delete.png" />
+    <Resource Include="Resources\Icons\folder-plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\document-delete.png" />
+    <Resource Include="Resources\Icons\document-edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\case.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\folder-import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <SplashScreen Include="SplashScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\arrow.png" />
+    <Resource Include="Resources\Icons\brush.png" />
+    <Resource Include="Resources\Icons\tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\bucket.png" />
+    <Resource Include="Resources\Icons\dropper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\arrow2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cursors\Dropper.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cursors\Bucket.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\tree_controller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\tree_movie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\tree_frame.png" />
+    <Resource Include="Resources\Icons\tree_pixel.png" />
+    <Resource Include="Resources\Icons\tree_strip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Delay\Delay.csproj">
+      <Project>{123d2a83-2e85-4288-bf02-cfe9ebe123e1}</Project>
+      <Name>Delay</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fade\Fade.csproj">
+      <Project>{4e5861ae-fe4f-46ed-bd9a-5a1adbabb2ff}</Project>
+      <Name>Fade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gradient\Gradient.csproj">
+      <Project>{91c57557-03bd-45db-b7ba-590ad29b9178}</Project>
+      <Name>Gradient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MostRecentFiles\MostRecentFiles.csproj">
+      <Project>{6f0d5053-1c45-4ed1-b7fc-9a7658a266d5}</Project>
+      <Name>MostRecentFiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rotate\Rotate.csproj">
+      <Project>{f0f1d4b2-afbf-4795-8893-b1eb964b8180}</Project>
+      <Name>Rotate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedInterfaces\SharedInterfaces.csproj">
+      <Project>{8e015b90-56a8-4a31-8b9f-e1440236c083}</Project>
+      <Name>SharedInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToolBox\ToolBox.csproj">
+      <Project>{74615de9-4e4d-4b5d-a3b8-51d32e6baaa4}</Project>
+      <Name>ToolBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Transform\Transform.csproj">
+      <Project>{308cb278-212b-4ab8-a9fc-e899bf84c9e1}</Project>
+      <Name>Transform</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\music_end.png" />
+    <Resource Include="Resources\Icons\music_forward.png" />
+    <Resource Include="Resources\Icons\music_home.png" />
+    <Resource Include="Resources\Icons\music_pause.png" />
+    <Resource Include="Resources\Icons\music_play.png" />
+    <Resource Include="Resources\Icons\music_rewind.png" />
+    <Resource Include="Resources\Icons\music_stop.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

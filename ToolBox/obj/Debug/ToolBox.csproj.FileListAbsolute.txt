@@ -1,0 +1,18 @@
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\obj\Debug\ToolBox.csprojResolveAssemblyReference.cache
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\bin\Debug\ToolBox.dll
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\bin\Debug\ToolBox.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\obj\Debug\ToolBox.dll
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\obj\Debug\ToolBox.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.dll
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.xml
+E:\Development\LightBringer\ToolBox\bin\Debug\ToolBox.dll
+E:\Development\LightBringer\ToolBox\bin\Debug\ToolBox.pdb
+E:\Development\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.dll
+E:\Development\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.pdb
+E:\Development\LightBringer\ToolBox\bin\Debug\HelixToolkit.Wpf.xml
+E:\Development\LightBringer\ToolBox\obj\Debug\ToolBox.csprojAssemblyReference.cache
+E:\Development\LightBringer\ToolBox\obj\Debug\ToolBox.csproj.CoreCompileInputs.cache
+E:\Development\LightBringer\ToolBox\obj\Debug\ToolBox.csproj.CopyComplete
+E:\Development\LightBringer\ToolBox\obj\Debug\ToolBox.dll
+E:\Development\LightBringer\ToolBox\obj\Debug\ToolBox.pdb

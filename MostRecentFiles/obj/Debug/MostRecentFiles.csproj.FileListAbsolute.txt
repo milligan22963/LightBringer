@@ -1,0 +1,13 @@
+E:\Development\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.dll
+E:\Development\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.pdb
+E:\Development\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.dll
+E:\Development\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.dll
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.csprojResolveAssemblyReference.cache
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.dll
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.pdb
+C:\Users\milligan\Documents\Visual Studio 2012\Projects\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.dll.config
+E:\Development\LightBringer\MostRecentFiles\bin\Debug\MostRecentFiles.dll.config
+E:\Development\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.csprojAssemblyReference.cache
+E:\Development\LightBringer\MostRecentFiles\obj\Debug\MostRecentFiles.csproj.CoreCompileInputs.cache
